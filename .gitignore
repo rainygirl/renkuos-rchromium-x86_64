@@ -1,0 +1,9 @@
+# Build outputs and artifacts.
+build/
+out/
+*.o
+*.a
+*.so
+__pycache__/
+*.pyc
+/release/
