@@ -3,9 +3,11 @@ version			@VERSION@
 architecture	x86_64
 summary			"Chromium running natively on Haiku x86_64"
 description		"R Chromium is Chromium 154 built for Haiku/x86_64 with a BeAPI toolbar \
-(back, forward, reload, address field, bookmarks) and bundled Noto Sans CJK fonts. \
-Pages are rendered in software and there is no sandbox: Haiku has no seccomp, \
-no user namespaces and no zygote."
+(back, forward, reload, address field, bookmarks) and bundled Noto fonts for CJK, Arabic and colour emoji. \
+Pages are rendered in software. Renderers run in their own processes and drop \
+root, so they cannot write your files or kill other applications, but this is \
+not a full sandbox: Haiku has no seccomp or namespaces, and a compromised \
+renderer can still read files, open connections and message other applications."
 vendor			"Haiku Project"
 packager		"The RENKU project"
 copyrights		{
@@ -13,6 +15,7 @@ copyrights		{
 }
 licenses		{
 	"BSD (3-clause)"
+	"SIL Open Font License v1.1"
 }
 provides {
 	rchromium = @VERSION@

@@ -17,7 +17,7 @@ VERSION=154.0.8036.0
 REV=1
 
 for f in content_shell content_shell.pak icudtl.dat snapshot_blob.bin locales \
-         lib/libchromium_haiku.so; do
+         lib/libchromium_haiku.so fonts/Noto-COLRv1.ttf; do
 	[ -e "$DIST/$f" ] || { echo "missing $DIST/$f" >&2; exit 1; }
 done
 
@@ -40,7 +40,7 @@ export LIBRARY_PATH
 ulimit -n 8192 2>/dev/null
 # No video capture backend on Haiku: the fake device keeps pages that list
 # media devices from dereferencing a missing factory.
-exec ./content_shell --ozone-platform=haiku --no-sandbox --single-process \
+exec ./content_shell --ozone-platform=haiku \
 	--disable-gpu --in-process-gpu --disable-gpu-compositing \
 	--use-fake-device-for-media-stream "$@"
 EOF

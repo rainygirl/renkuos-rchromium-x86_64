@@ -63,7 +63,7 @@ step "ninja"
 ninja -C $OUTDIR -k ${KEEP:-0} content_shell
 
 step "dist"
-# What packaging/ expects, minus the fonts (copied from the arm64 release).
+# What packaging/ expects, bundled fonts included.
 DIST=${DIST:-/root/dist-x64}/RChromium
 STRIP=third_party/llvm-build/Release+Asserts/bin/llvm-strip
 rm -rf "$DIST"
@@ -73,4 +73,5 @@ $STRIP -o "$DIST/lib/libtest_trace_processor.so" $OUTDIR/libtest_trace_processor
 cp $OUTDIR/content_shell.pak $OUTDIR/icudtl.dat $OUTDIR/snapshot_blob.bin "$DIST/"
 cp $OUTDIR/ui/en-US.pak "$DIST/locales/"
 cp "$SYSROOT/boot/system/lib/libchromium_haiku.so" "$DIST/lib/"
+sh "$R/packaging/fetch-fonts.sh" "$DIST/fonts"
 echo "BUILD-DONE"

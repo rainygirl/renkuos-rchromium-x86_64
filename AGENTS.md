@@ -43,8 +43,15 @@ docker exec -d haiku-chromium bash -c \
 ```
 
 A clean x64 build is about 13.5k steps (several hours on the M4).
-The result is `/root/dist-x64/RChromium` (fonts not included: copy `fonts/`
-from the arm64 release tarball).
+The result is `/root/dist-x64/RChromium`, with `fonts/` filled by
+`packaging/fetch-fonts.sh` (CJK, Arabic and colour emoji, pinned and checked).
+
+`port/` is the arm64 repository's, kept in step with it: since arm64 PR #1
+(extensions, the renderer sandbox, multi-process, the fonts, by idumych) it
+also carries `port-x64.py` and `files/build/`. Re-applying the port to a tree
+that was already ported needed two fixes, both in arm64 main now:
+`port-gfx-sources.py`, and `port-content.py` writing the stack trace's x64
+registers itself.
 
 ## Things that matter
 

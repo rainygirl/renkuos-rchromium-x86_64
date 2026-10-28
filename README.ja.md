@@ -3,8 +3,9 @@
 [English](README.md) | **日本語** | [한국어](README.ko.md)
 
 Haiku x86_64 でネイティブに動作する Chromium 154 です。戻る/進む/再読み込み、
-アドレス欄、ブックマークからなる BeAPI ツールバー付きです。Noto Sans CJK を
-同梱しているので、日本語・韓国語・中国語のページが追加フォントなしで表示されます。
+アドレス欄、ブックマークからなる BeAPI ツールバー付きです。Noto Sans CJK、Noto Sans
+Arabic、Noto Color Emoji を同梱しているので、日本語・韓国語・中国語・アラビア語のページと
+カラー絵文字が追加フォントなしで表示されます。
 素の Haiku x86_64 で動作し、[arm64 ビルド](https://github.com/rainygirl/renkuos-rchromium-arm64)
 と違ってカーネルやランタイムローダーのパッチは不要です。2008 年の MacBook
 (Core 2 Duo、AVX なし)、hrev60072 でテストしています。
@@ -78,6 +79,24 @@ pkgman uninstall rchromium
 [AGENTS.md](AGENTS.md) を参照してください。Apple Silicon Mac 上の arm64 Linux
 コンテナでクロスビルドし、V8 のスナップショットツールは Rosetta で実際の
 x86-64 バイナリとして実行します。
+
+## 拡張機能
+
+Chrome 拡張 (Manifest V3) は、プロファイルの `Extensions` フォルダー
+(`~/config/settings/content_shell/Extensions`) から読み込みます。展開した拡張
+1 つがフォルダー 1 つです。`--load-extension=<dir>` で 1 回だけ読み込むこともできます。
+action のある拡張はツールバーにボタンが付き、バッジとポップアップも出ます。Brave
+Shields の広告ブロックをテストしました。動くものと省いたものは
+[docs/EXTENSIONS.md](docs/EXTENSIONS.md) にあります。
+
+ページはそれぞれのプロセスで描画され、そのプロセスは Web コンテンツを扱う前に root
+権限を手放します ([docs/SANDBOX.md](docs/SANDBOX.md))。乗っ取られたページがユーザーの
+ファイルを書き込むことはできませんが、完全なサンドボックスではありません。
+
+## 貢献者
+
+- [idumych](https://github.com/idumych) -- 拡張機能、レンダラーのサンドボックス、
+  マルチプロセス、アラビア語とカラー絵文字のフォント、x86_64 Linux ホストでのビルド
 
 ## AI 利用について
 

@@ -3,8 +3,9 @@
 [English](README.md) | [日本語](README.ja.md) | **한국어**
 
 Haiku x86_64에서 네이티브로 동작하는 Chromium 154입니다. 뒤로/앞으로/새로고침,
-주소 입력란, 북마크로 이루어진 BeAPI 툴바가 붙어 있습니다. Noto Sans CJK를
-내장해 한국어, 일본어, 중국어 페이지가 추가 폰트 없이 표시됩니다. 순정 Haiku
+주소 입력란, 북마크로 이루어진 BeAPI 툴바가 붙어 있습니다. Noto Sans CJK, Noto
+Sans Arabic, Noto Color Emoji를 내장해 한국어, 일본어, 중국어, 아랍어 페이지와 컬러
+이모지가 추가 폰트 없이 표시됩니다. 순정 Haiku
 x86_64에서 동작하며, [arm64 빌드](https://github.com/rainygirl/renkuos-rchromium-arm64)와
 달리 커널이나 런타임 로더 패치가 필요 없습니다. 2008년 MacBook(Core 2 Duo,
 AVX 없음), hrev60072에서 테스트했습니다.
@@ -76,6 +77,24 @@ pkgman uninstall rchromium
 [AGENTS.md](AGENTS.md)를 참고하세요. Apple Silicon Mac의 arm64 Linux
 컨테이너에서 크로스 빌드하며, V8 스냅샷 도구는 Rosetta로 실제 x86-64
 바이너리로 실행합니다.
+
+## 확장 기능
+
+Chrome 확장(Manifest V3)은 프로필의 `Extensions` 폴더
+(`~/config/settings/content_shell/Extensions`)에서 불러옵니다. 압축을 푼 확장
+하나가 폴더 하나입니다. `--load-extension=<dir>`로 한 번만 불러올 수도 있습니다.
+action이 있는 확장은 툴바에 버튼이 생기고, 배지와 팝업도 나옵니다. Brave Shields의
+광고 차단을 테스트했고, 되는 것과 빠진 것은 [docs/EXTENSIONS.md](docs/EXTENSIONS.md)에
+있습니다.
+
+페이지는 각자의 프로세스에서 렌더링되고, 이 프로세스는 웹 콘텐츠를 다루기 전에 root
+권한을 버립니다([docs/SANDBOX.md](docs/SANDBOX.md)). 그래서 공격당한 페이지가 사용자
+파일을 쓸 수는 없지만, 완전한 샌드박스는 아닙니다.
+
+## 기여자
+
+- [idumych](https://github.com/idumych) -- 확장 기능, 렌더러 샌드박스, 멀티프로세스,
+  아랍어·컬러 이모지 폰트, x86_64 Linux 호스트 빌드
 
 ## AI 활용 고지
 
