@@ -91,3 +91,10 @@ Same as arm64:
    `scripts/make-repo.sh x86_64`; copy `repo/x86_64` back and run
    `scripts/deploy.sh x86_64` on the workstation. Bump REVISION in the recipe
    for every new package.
+
+## Downloads (2026-11-08)
+
+`port/port-shell-downloads.py` and the shim's Downloads window come from the
+arm64 repository (see its AGENTS.md, "Downloads, and the star that shows a
+page is bookmarked"). `out/haiku-x64` and the x64 shim build and link with
+them; not yet run on a Haiku x86_64 machine.
